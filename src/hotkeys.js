@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import manager from './manager';
+import manager, { Manager } from './manager';
 
 const arrayify = x => Array.isArray(x) ? x : [x];
 
@@ -12,7 +12,9 @@ class Hotkeys extends React.Component {
   }
 
   handleHotkey(e) {
-    e.preventDefault();
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
 
     const { callback, disabled } = this.props;
     if ((disabled instanceof Function && !disabled()) || !disabled) {
@@ -40,3 +42,4 @@ Hotkeys.propTypes = {
 }
 
 export default Hotkeys;
+export { manager, Manager }

@@ -6,7 +6,16 @@
   "scripts": {
     "build": "webpack --config webpack.config.js --progress",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react"
+    ]
+  },
+  "jest": {
+    "setupFiles": ["./jest.setup.js"]
   },
   "author": "",
   "license": "ISC",
@@ -19,8 +28,12 @@
   "devDependencies": {
     "@storybook/react": "^3.3.14",
     "babel-core": "^6.26.0",
+    "babel-jest": "^22.4.1",
     "babel-loader": "^7.1.3",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "jest": "^22.4.2",
     "path": "^0.12.7"
   }

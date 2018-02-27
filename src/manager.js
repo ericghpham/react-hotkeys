@@ -8,9 +8,9 @@ const reject = (list, test) =>
 
 const noop = () => {}
 
-class Manager {
+class Manager extends Mousetrap {
   constructor(element = document.body) {
-    this.manager = Mousetrap(element);
+    super(element);
     this.keys = new Map();
   }
 
@@ -30,7 +30,7 @@ class Manager {
     let bindings = this.unbind(key, callback);
     bindings.push(callback);
     this.keys.set(key, bindings);
-    this.manager.bind(key, callback);
+    super.bind(key, callback);
     return bindings;
   }
 
@@ -38,7 +38,7 @@ class Manager {
     let bindings = this.keys.get(key) || [];
     bindings = reject(bindings, fn => fn === callback);
     this.keys.set(key, bindings);
-    this.manager.bind(key, bindings[bindings.length - 1] || noop)
+    super.bind(key, bindings[bindings.length - 1] || noop)
     return bindings;
   }
 }

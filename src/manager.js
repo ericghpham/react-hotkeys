@@ -1,5 +1,7 @@
 import Mousetrap from 'mousetrap';
 
+const arrayify = x => Array.isArray(x) ? x : [x];
+
 const reject = (list, test) =>
   list.reduce(
     (memo, item, index) => test(item, index) ? memo : (memo.push(item), memo),
@@ -15,13 +17,13 @@ class Manager extends Mousetrap {
   }
 
   bindKeys(keys, callback) {
-    for (const key of keys) {
+    for (const key of arrayify(keys)) {
       this.bind(key, callback);
     }
   }
 
   unbindKeys(keys, callback) {
-    for (const key of keys) {
+    for (const key of arrayify(keys)) {
       this.unbind(key, callback);
     }
   }

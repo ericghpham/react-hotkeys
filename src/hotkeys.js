@@ -2,13 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import manager, { Manager } from './manager';
 
-const arrayify = x => Array.isArray(x) ? x : [x];
-
 class Hotkeys extends React.Component {
   constructor(props) {
     super(props);
     this.handleHotkey = this.handleHotkey.bind(this);
-    this.keys = arrayify(props.keys);
   }
 
   handleHotkey(e) {
@@ -23,11 +20,18 @@ class Hotkeys extends React.Component {
   }
 
   componentWillMount() {
-    manager.bindKeys(this.keys, this.handleHotkey);
+    manager.bindKeys(this.props.keys, this.handleHotkey);
+  }
+
+  componentWillReceiveProps() {
+    if (this.props.keys !== nextProps.keys) {
+      manager.unbindKeys(this.props.keys, this.handleHotkey);
+      manager.bindKeys(nextProps.keys, this.handleHotkey);
+    }
   }
 
   componentWillUnmount() {
-    manager.unbindKeys(this.keys, this.handleHotkey);
+    manager.unbindKeys(this.props.keys, this.handleHotkey);
   }
 
   render() {
